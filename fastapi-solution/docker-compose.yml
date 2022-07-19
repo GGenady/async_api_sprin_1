@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  redis:
+    image: 'redis'
+    container_name: redis
+
+  es:
+    image: docker.io/elastic/elasticsearch:7.7.0
+    container_name: elasticsearch
+
+  backend:
+    container_name: fast_api
+    build:
+      context: .
+    volumes:
+      - /src:/src
+    depends_on:
+      - redis
+      - es

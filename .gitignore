@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -102,6 +103,8 @@ celerybeat.pid
 # SageMath parsed files
 *.sage.py
 
+=======
+>>>>>>> f3fd22cbc7d593af62306e984191206b8e99d1a4
 # Environments
 .env
 .venv
@@ -111,6 +114,7 @@ ENV/
 env.bak/
 venv.bak/
 
+<<<<<<< HEAD
 # Spyder project settings
 .spyderproject
 .spyproject
@@ -137,3 +141,10 @@ __pycache__/
 
 
 
+
+=======
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class%
+>>>>>>> f3fd22cbc7d593af62306e984191206b8e99d1a4
