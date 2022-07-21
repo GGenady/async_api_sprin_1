@@ -1,4 +1,4 @@
-import logging
+# -*- coding: utf-8 -*-
 
 import aioredis
 import uvicorn
@@ -8,24 +8,25 @@ from fastapi.responses import ORJSONResponse
 
 from api.v1 import films
 from core import config
-from core.logger import LOGGING
 from db import elastic, redis
 
 app = FastAPI(
     title=config.PROJECT_NAME,
-    docs_url='/api/openapi',
-    openapi_url='/api/openapi.json',
+    docs_url="/api/openapi",
+    openapi_url="/api/openapi.json",
     default_response_class=ORJSONResponse,
 )
 
 
-@app.on_event('startup')
+@app.on_event("startup")
 async def startup():
-    redis.redis = await aioredis.from_url('redis://localhost')
-    elastic.es = AsyncElasticsearch(hosts=[f'https://{config.ELASTIC_HOST}:{config.ELASTIC_PORT}'])
+    redis.redis = await aioredis.from_url(f"redis://{config.REDIS_HOST}:{config.REDIS_PORT}")
+    elastic.es = AsyncElasticsearch(
+        hosts=[f"http://{config.ELASTIC_HOST}:{config.ELASTIC_PORT}"]
+    )
 
 
-@app.on_event('shutdown')
+@app.on_event("shutdown")
 async def shutdown():
     redis.redis.close()
     await redis.redis.wait_closed()
@@ -34,11 +35,11 @@ async def shutdown():
 
 # Подключаем роутер к серверу, указав префикс /v1/films
 # Теги указываем для удобства навигации по документации
-app.include_router(films.router, prefix='/api/v1/films', tags=['films'])
+app.include_router(films.router, prefix="/api/v1/films", tags=["films"])
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     uvicorn.run(
-        'main:app',
-        host='0.0.0.0',
+        "main:app",
+        host="0.0.0.0",
         port=8000,
     )
