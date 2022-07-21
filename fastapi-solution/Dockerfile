@@ -16,8 +16,6 @@ COPY /src ./
 # Укажите порт, на котором приложение будет доступно внутри Docker-сети
 EXPOSE 8000/tcp
 
-#
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
-
-
-
+#Этой командой запускать, если в main.py не запускается сервер
+#CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+ENTRYPOINT ["python3", "main.py"]
